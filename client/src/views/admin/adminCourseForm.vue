@@ -16,11 +16,13 @@ const resetError=()=>{
     errorCourse.value.image='';
 }
 onMounted(()=>{
+    console.log(props.course);
     if(props.status=='update'){
         currentCourse.value.title=props.course.title;
         currentCourse.value.id=props.course.id;
         currentCourse.value.totalQuestions=props.course.totalQuestions;
-        currentCourse.value.totalQuestions=props.course.totalQuestions;
+        currentCourse.value.description=props.course.description;
+        currentCourse.value.image=props.course.image;
     }
 })
 const validateTitle=()=>{
@@ -55,8 +57,12 @@ const handleSubmit=()=>{
     resetError();
     validateCourse();
     if(errorCourse.value.title==''&&errorCourse.value.description==''&&errorCourse.value.image==''){
-        currentCourse.value.id=Math.floor(Math.random()*1000001);
-        store.dispatch('addCourse',{...currentCourse.value});
+        if(props.status=='update'){
+            store.dispatch('updateCourse',{...currentCourse.value});
+        }else{
+            currentCourse.value.id=Math.floor(Math.random()*1000001);
+            store.dispatch('addCourse',{...currentCourse.value});
+        }
         props.handleCloseForm();
     }
 }
@@ -64,7 +70,9 @@ const handleSubmit=()=>{
 <template>
     <div class="modal">
         <form @submit.prevent="handleSubmit">
-            <!-- {{allCourses }} -->
+            <butto class="close_form" @click="handleCloseForm()">
+                <ion-icon name="close-outline"></ion-icon>
+            </butto>
             <div class="form_item">
                 <h3>Thêm khóa học</h3>
             </div>
@@ -110,6 +118,7 @@ form {
     height: 450px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position:relative
 }
 .form_item{
     margin-bottom: 15px;
@@ -129,12 +138,30 @@ button{
     color: white;
     border: none;
     border-radius:10px;
+    cursor: pointer;
 }
 .message_error{
     color: red;
     font-size: small;
     margin-top: 5px;
 }
+.close_form{
+    position: absolute;
+    top:0;
+    cursor: pointer;
+    right:0;
+   width: 40px;
+   height:40px;
+   background-color:rgba(255, 0, 0, 0.932);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-size: larger;
+   color: white;
+   border-top-right-radius: 12px;
+   border-bottom-left-radius:12px ;
+}
+
 </style>
 
 

@@ -9,3 +9,6 @@ export const deleteCourse=async(courseId) => {
 export const createCourse = async (data) => {
     const response = await axios.post('http://localhost:3000/courses',data);
 };
+export const updateCourse = async (data) => {
+    const response = await axios.patch(`http://localhost:3000/courses/${data.id}`,data);
+};

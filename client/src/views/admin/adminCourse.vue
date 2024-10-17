@@ -1,10 +1,12 @@
 <script setup>
-import {onMounted,computed,ref} from 'vue'
+import {onMounted,computed,ref, reactive} from 'vue'
 import{useStore} from 'vuex';
 import courseForm from './adminCourseForm.vue'
 const store=useStore();
 const backendCourses=computed(()=>store.state.courses.courses);
 const activateFormAdd=ref(false);
+const activateFormUpdate=ref(false);
+let courseY=reactive({});
 onMounted(()=>{
     store.dispatch('getCourses');
 })
@@ -19,10 +21,23 @@ const handleDelete=(id)=>{
 const handleCloseAddForm=()=>{
   activateFormAdd.value=false;
 }
+const handleCloseUpdateForm=()=>{
+  activateFormUpdate.value=false;
+}
+const handleOpenUpdateForm=(course)=>{
+  courseY=course;
+  activateFormUpdate.value=true;
+}
 </script>
 <template>
 <div>
     <courseForm v-if="activateFormAdd" :handleCloseForm="handleCloseAddForm"></courseForm>
+    <courseForm v-if="activateFormUpdate" 
+      :handleCloseForm="handleCloseUpdateForm" 
+      status="update" 
+      :course="{...courseY}"
+    >
+    </courseForm>
     <div class="top_part">
       <button class="add_cart_btn" @click="handleOpenAddForm"><i class='bx bx-plus'></i>
         <span>thêm mới</span>
@@ -45,7 +60,7 @@ const handleCloseAddForm=()=>{
                 <td>{{course.description}}</td> 
                 <td>{{course.totalQuestions}}</td>
                 <td class="action_td">
-                    <i class='bx bx-pencil'></i>
+                    <i class='bx bx-pencil' @click="handleOpenUpdateForm(course)"></i>
                     <i class='bx bxs-eraser' @click="handleDelete(course.id)"></i>
                 </td>
             </tr>

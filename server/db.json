@@ -19,7 +19,7 @@
       "name": "quan2k5",
       "password": "leanhquan2122005",
       "image": "",
-      "block": true
+      "block": false
     },
     {
       "id": 2,
@@ -27,7 +27,7 @@
       "name": "user2",
       "password": "password2",
       "image": "",
-      "block": false
+      "block": true
     },
     {
       "id": 3,
@@ -35,7 +35,7 @@
       "name": "user3",
       "password": "password3",
       "image": "",
-      "block": true
+      "block": false
     },
     {
       "id": 4,
@@ -74,14 +74,14 @@
     {
       "id": 119,
       "title": "Khoá thi đại học",
-      "description": "Luyện thi toán lý hoá",
-      "totalQuestions": 100,
+      "description": "Luyện thi toán lý hoá cấp tốc",
+      "totalQuestions": 0,
       "image": "https://firebasestorage.googleapis.com/v0/b/ptit-729c7.appspot.com/o/courses%2Fcourse3.jpg?alt=media&token=af9a768b-f524-406c-93ec-fbeb118d9d68"
     },
     {
       "title": "Khoá Thi cấp 1",
       "description": "Khoá luyện thi dành cho các bạn lớp 1",
-      "totalQuestions": 49,
+      "totalQuestions": 0,
       "image": "https://firebasestorage.googleapis.com/v0/b/ptit-729c7.appspot.com/o/courses%2Fcourse4.jpg?alt=media&token=852dda6f-f1be-4aa1-8a40-7b3a05549911",
       "id": 375
     },
@@ -89,13 +89,13 @@
       "id": 760,
       "title": "Khoá luyên thi DGNL",
       "description": "Kỳ thi đánh giá năng lực cho các bạn lớp 12",
-      "totalQuestions": 100,
+      "totalQuestions": 0,
       "image": "https://firebasestorage.googleapis.com/v0/b/ptit-729c7.appspot.com/o/courses%2Fcourse6.jpg?alt=media&token=2637ed32-6e6e-47be-93fd-96d6ef54343f"
     },
     {
       "title": "Khoá Luyện Thi Toeic",
       "description": "Dành Cho Các Bạn Muốn Lấy 900+ ",
-      "totalQuestions": 200,
+      "totalQuestions": 0,
       "image": "https://firebasestorage.googleapis.com/v0/b/ptit-729c7.appspot.com/o/courses%2Fcourse1.jpg?alt=media&token=7d78ee0b-9a8c-41df-a691-2ca7c53adc6d",
       "id": 66
     },
@@ -103,20 +103,20 @@
       "id": 617,
       "title": "Khoá Học Tiếng Nga ",
       "description": "Dành cho người có nhu cầu du học Nga",
-      "totalQuestions": 50,
+      "totalQuestions": 0,
       "image": "https://firebasestorage.googleapis.com/v0/b/ptit-729c7.appspot.com/o/courses%2Fcourse1.jpg?alt=media&token=0c619e64-8b6a-4f82-a2c2-c2d2edfa6eca"
     },
     {
       "title": "Khoá luyện thi cấp 2",
       "description": "Khoá luyện thi dành cho các bạn lớp 5",
-      "totalQuestions": 40,
+      "totalQuestions": 0,
       "image": "https://firebasestorage.googleapis.com/v0/b/ptit-729c7.appspot.com/o/courses%2FexamSub2.jpg?alt=media&token=7514e2b8-4c7a-472a-9198-907f8596ee6c",
       "id": 913
     },
     {
       "id": 550607,
-      "title": "Khóa luyện thi toeic",
-      "description": "dành cho sinh viên đại học muốn đat chứng chỉ toeic",
+      "title": "Khóa luyện thi toeic 2",
+      "description": "dành cho sinh viên muốn đạt chứng chỉ toeic",
       "totalQuestions": 0,
       "image": "https://firebasestorage.googleapis.com/v0/b/vue1project-1cfa3.appspot.com/o/images%2Fimages.png?alt=media&token=8e0ae4a1-4f9b-4721-9fa2-fbd217e77a12"
     }

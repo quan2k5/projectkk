@@ -31,8 +31,14 @@ watch(inputSearch,async(newValue)=>{
   store.dispatch('getAllUsers',queryString.stringify(restParams))
 });
 const handleBlock=(id,block)=>{
-  if(confirm("Bạn có muốn chặn người dùng này không?")){
+  if(!block){
+    if(confirm("Bạn có muốn chặn người dùng này không?")){
     store.dispatch('updateUsers',{id:id,block:block});
+    }
+  }else{
+    if(confirm("Bạn có muốn bỏ chặn người dùng này không?")){
+    store.dispatch('updateUsers',{id:id,block:block});
+    }
   }
 }
 const handlePage=(currentPage)=>{
