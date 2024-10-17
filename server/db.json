@@ -1,0 +1,117 @@
+{
+  "questions": [
+    {
+      "id": 12
+    }
+  ],
+  "admin": [
+    {
+      "id": 1,
+      "email": "lanhquan130@gmail.com",
+      "password": "quan2122005@",
+      "status": true
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "email": "lanhquan130@gmail.com",
+      "name": "quan2k5",
+      "password": "leanhquan2122005",
+      "image": "",
+      "block": true
+    },
+    {
+      "id": 2,
+      "email": "user2@example.com",
+      "name": "user2",
+      "password": "password2",
+      "image": "",
+      "block": true
+    },
+    {
+      "id": 3,
+      "email": "user3@example.com",
+      "name": "user3",
+      "password": "password3",
+      "image": "",
+      "block": true
+    },
+    {
+      "id": 4,
+      "email": "user4@example.com",
+      "name": "user4",
+      "password": "password4",
+      "image": "",
+      "block": true
+    },
+    {
+      "id": 5,
+      "email": "user5@example.com",
+      "name": "user5",
+      "password": "password5",
+      "image": "",
+      "block": true
+    },
+    {
+      "id": 6,
+      "email": "user6@example.com",
+      "name": "user6",
+      "password": "password6",
+      "image": "",
+      "block": true
+    },
+    {
+      "id": 7,
+      "email": "user7@example.com",
+      "name": "user7",
+      "password": "password7",
+      "image": "",
+      "block": true
+    }
+  ],
+  "courses": [
+    {
+      "id": 119,
+      "title": "Khoá thi đại học",
+      "description": "Luyện thi toán lý hoá",
+      "totalQuestions": 100,
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-729c7.appspot.com/o/courses%2Fcourse3.jpg?alt=media&token=af9a768b-f524-406c-93ec-fbeb118d9d68"
+    },
+    {
+      "title": "Khoá Thi cấp 1",
+      "description": "Khoá luyện thi dành cho các bạn lớp 1",
+      "totalQuestions": 49,
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-729c7.appspot.com/o/courses%2Fcourse4.jpg?alt=media&token=852dda6f-f1be-4aa1-8a40-7b3a05549911",
+      "id": 375
+    },
+    {
+      "id": 760,
+      "title": "Khoá luyên thi DGNL",
+      "description": "Kỳ thi đánh giá năng lực cho các bạn lớp 12",
+      "totalQuestions": 100,
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-729c7.appspot.com/o/courses%2Fcourse6.jpg?alt=media&token=2637ed32-6e6e-47be-93fd-96d6ef54343f"
+    },
+    {
+      "title": "Khoá Luyện Thi Toeic",
+      "description": "Dành Cho Các Bạn Muốn Lấy 900+ ",
+      "totalQuestions": 200,
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-729c7.appspot.com/o/courses%2Fcourse1.jpg?alt=media&token=7d78ee0b-9a8c-41df-a691-2ca7c53adc6d",
+      "id": 66
+    },
+    {
+      "id": 617,
+      "title": "Khoá Học Tiếng Nga ",
+      "description": "Dành cho người có nhu cầu du học Nga",
+      "totalQuestions": 50,
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-729c7.appspot.com/o/courses%2Fcourse1.jpg?alt=media&token=0c619e64-8b6a-4f82-a2c2-c2d2edfa6eca"
+    },
+    {
+      "title": "Khoá luyện thi cấp 2",
+      "description": "Khoá luyện thi dành cho các bạn lớp 5",
+      "totalQuestions": 40,
+      "image": "https://firebasestorage.googleapis.com/v0/b/ptit-729c7.appspot.com/o/courses%2FexamSub2.jpg?alt=media&token=7514e2b8-4c7a-472a-9198-907f8596ee6c",
+      "id": 913
+    }
+  ]
+}
