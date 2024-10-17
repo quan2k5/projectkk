@@ -1,6 +1,7 @@
 <template>
   <div class="imageProduct_form">
-    <h4 class="image_product_title">Hình ảnh sản phẩm</h4>
+    <div class="image_product_title">Hình ảnh khóa học</div>
+    <div class="main_content">
     <div class="uploadImage_part">
       <div class="upload_icon_part">
         <svg
@@ -24,22 +25,41 @@
         @change="handleImageChange"
       />
     </div>
+    <div class="img_box" v-if="image">
+      <img :src="image" alt="">
+    </div>
+    </div>
+    <div class="message_error">{{error}}</div>
   </div>
 </template>
 <script setup>
-import { ref, computed } from 'vue';
+import {computed } from 'vue';
 import { useStore } from 'vuex';
-const store = useStore();
-const handleImageChange = (event) => {
-  const target = event.target 
-  const files = target.files;
-  if (files && files.length > 0) {
+import {ref,uploadBytes,getDownloadURL} from 'firebase/storage';
+const props=defineProps(['image','error'])
+const emits=defineEmits(['handleImange']);
+import {storage} from '../firebase/firebaseConfig'
+const handleImageChange = async(event) => {
+  const files=event.target.files; ;
+  if(files && files.length > 0){
     const file = files[0];
-    console.log(file); 
+    const storageRef = ref(storage, `images/${file.name}`);
+    try {
+      const snapshot = await uploadBytes(storageRef, file);
+      const url= await getDownloadURL(snapshot.ref);
+      emits('handleImange',url);   
+    }catch(error){
+      console.log('lỗi'); 
+    }
   }
 };
 </script>
 <style scoped>
+.main_content{
+  display: flex;
+  gap:10px
+}
+
 .imageProduct_form {
   background-color: var(--white-color);
   min-height: 100px;
@@ -130,5 +150,13 @@ const handleImageChange = (event) => {
 .message_error {
   color: red;
   margin-top: 10px;
+}
+.img_box img{
+  width: 90px;
+  height: 100px;
+}
+.message_error{
+  font-size: small;
+  color: red;
 }
 </style>

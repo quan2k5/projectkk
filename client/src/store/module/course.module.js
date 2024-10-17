@@ -1,4 +1,4 @@
-import { getAllCourses,deleteCourse } from "@/api/Course";
+import { getAllCourses,deleteCourse,createCourse } from "@/api/Course";
 const course={
     state:{
        courses:[],
@@ -16,6 +16,11 @@ const course={
         },
         deleteCourse:async({commit},payload)=>{
             await deleteCourse(payload);
+            const courses=await getAllCourses();
+            commit('setCourse',courses);
+        },
+        addCourse:async({commit},payload)=>{
+            await createCourse(payload);
             const courses=await getAllCourses();
             commit('setCourse',courses);
         }

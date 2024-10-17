@@ -1,21 +1,33 @@
 <script setup>
-import {onMounted,computed} from 'vue'
+import {onMounted,computed,ref} from 'vue'
 import{useStore} from 'vuex';
 import courseForm from './adminCourseForm.vue'
 const store=useStore();
 const backendCourses=computed(()=>store.state.courses.courses);
+const activateFormAdd=ref(false);
 onMounted(()=>{
     store.dispatch('getCourses');
 })
+const handleOpenAddForm=()=>{
+  activateFormAdd.value=true;
+}
 const handleDelete=(id)=>{
   if(confirm("Bạn có muốn xóa khóa thi này ko")){
     store.dispatch('deleteCourse',id);
   }
 }
+const handleCloseAddForm=()=>{
+  activateFormAdd.value=false;
+}
 </script>
 <template>
 <div>
-    <courseForm></courseForm>
+    <courseForm v-if="activateFormAdd" :handleCloseForm="handleCloseAddForm"></courseForm>
+    <div class="top_part">
+      <button class="add_cart_btn" @click="handleOpenAddForm"><i class='bx bx-plus'></i>
+        <span>thêm mới</span>
+      </button>
+    </div>
     <table>
         <thead>
             <tr>
@@ -105,5 +117,20 @@ table td {
 }
 .action_td i:last-child{
   color: red;
+}
+.top_part{
+  margin-bottom: 20px;
+}
+.add_cart_btn{
+  color: white;
+  border: none;
+  cursor: pointer;
+  background-color: rgba(0, 0, 255, 0.568);
+  width: 150px;
+  height: 35px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

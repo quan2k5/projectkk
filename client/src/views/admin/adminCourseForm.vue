@@ -2,11 +2,14 @@
 import { computed, onMounted, reactive,ref} from 'vue';
 import { useStore } from 'vuex';
 import ImageInput from '@/components/ImageInput.vue';
-const props=defineProps(['course','status']);
-const currentCourse=ref({id:-1,title:'',description:'',totalQuestions:"",image:""});
+const props=defineProps(['course','status','handleCloseForm']);
+const currentCourse=ref({id:-1,title:'',description:'',totalQuestions:0,image:""});
 const errorCourse=ref({title:'',description:'',image:""});
 const allCourses=computed(()=>store.state.courses.courses);
 const store=useStore();
+const handleImage=(link)=>{
+    currentCourse.value.image=link;
+}
 const resetError=()=>{
     errorCourse.value.title='';
     errorCourse.value.description='';
@@ -44,11 +47,18 @@ const validateCourse=()=>{
     if(currentCourse.value.description==''){
         errorCourse.value.description='Mô tả khóa học không đc để trống'
     }
+    if(currentCourse.value.image==''){
+        errorCourse.value.image="Hình ảnh khóa học không đc để trống"
+    }
 }
 const handleSubmit=()=>{
     resetError();
     validateCourse();
-
+    if(errorCourse.value.title==''&&errorCourse.value.description==''&&errorCourse.value.image==''){
+        currentCourse.value.id=Math.floor(Math.random()*1000001);
+        store.dispatch('addCourse',{...currentCourse.value});
+        props.handleCloseForm();
+    }
 }
 </script>
 <template>
@@ -70,7 +80,11 @@ const handleSubmit=()=>{
                 <input type="text" v-model="currentCourse.description">
                 <div class="message_error">{{ errorCourse.description }}</div>
             </div>  
-            <ImageInput></ImageInput>  
+            <ImageInput
+                :image="currentCourse.image"
+                @handleImange="handleImage"
+                :error="errorCourse.image"
+            ></ImageInput>  
             <div class="form_item">
                 <button>Submit</button>
             </div>
