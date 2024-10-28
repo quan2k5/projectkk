@@ -70,11 +70,11 @@ const handleSubmit=()=>{
 <template>
     <div class="modal">
         <form @submit.prevent="handleSubmit">
-            <butto class="close_form" @click="handleCloseForm()">
+            <div class="close_form" @click="handleCloseForm()">
                 <ion-icon name="close-outline"></ion-icon>
-            </butto>
+            </div>
             <div class="form_item">
-                <h3>Thêm khóa học</h3>
+                <h3>{{ status!='update'?'thêm':'cập nhật' }} khóa học</h3>
             </div>
             <div class="form_item">
                 <label for="">Tên khóa học</label>

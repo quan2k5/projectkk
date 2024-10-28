@@ -1,11 +1,11 @@
 import { getAdmin, getActiveAdmin } from "../../api/Admin";
 import { getAllUsers,getFilterUsers,updateUsers } from "@/api/User"; 
-import store from "../store";
 const users= {
   state: {
     admin:{},
     users:[],
     allUsers:[],
+    currentUser:{},
   },
   mutations: {
     setData:(state, payload)=>{
@@ -24,6 +24,9 @@ const users= {
     setAllUser:(state,payload)=>{
       state.allUsers=[]
       state.allUsers.push(...payload);
+    },
+    setCurrentUser:(state,payload)=>{
+      state.currentUser=payload;
     }
   },
   actions: {
@@ -46,8 +49,19 @@ const users= {
     async getAllUsers({commit},payload){
       const allUsers=await getFilterUsers(payload);
       commit('setAllUser',allUsers);
-    }
+    },
+    async getSortUsers({commit},payload){
+      await getFilterUsers(payload.param1);
+    },
+    async updateAllUser({commit},payload){
+      updateUsers(payload);
+    },
+    async getCurrentUser({commit}){
+      const users=await getAllUsers();
+      const findItem=users.find((item)=>item.status==true);
+      commit('setCurrentUser',findItem);
+    },
   },
-};
 
+};
 export default users;

@@ -2,59 +2,87 @@
   <div>
     <nav>
       <ul>
-        <li><span class="logo">
-          <span class="nav-item">QL Education</span>
-        </span></li>
-        <router-link>
-           <li><span class="menu-item">
-            <i class='fas bx bx-menu'></i>
-            <span class="nav-item">Tổng hợp</span>
-            </span></li> 
+        <li>
+          <span class="logo">
+            <span class="nav-item">OnlineTest</span>
+          </span>
+        </li>
+        
+        <router-link to="/" exact-active-class="active-link">
+          <li>
+            <span class="menu-item">
+              <i class='fas bx bx-menu'></i>
+              <span class="nav-item">Tổng hợp</span>
+            </span>
+          </li> 
+        </router-link>   
+        <router-link to="/admin/users" exact-active-class="active-link">
+          <li>
+            <span class="menu-item">
+              <i class='fas bx bxs-user'></i>
+              <span class="nav-item">Người dùng</span>
+            </span>
+          </li>
         </router-link>
-        <router-link to="/admin/users" >
-          <li><span class="menu-item">
-          <i class='fas bx bxs-user'></i>
-          <span class="nav-item">Người dùng</span>
-        </span></li>
+        
+        <router-link to="/admin/courses" exact-active-class="active-link">
+          <li>
+            <span class="menu-item">
+              <i class='fas bx bx-book-open'></i>
+              <span class="nav-item">Khóa học</span>
+            </span>
+          </li>
         </router-link>
-        <router-link to="/admin/courses" >
-          <li><span class="menu-item">
-          <i class='fas bx bx-book-open'></i>
-          <span class="nav-item">Khóa học</span>
-        </span></li>
+        
+        <router-link to="/admin/subjects" exact-active-class="active-link">
+          <li>
+            <span class="menu-item">
+              <i class='fas bx bxs-book'></i>
+              <span class="nav-item">Môn học</span>
+            </span>
+          </li>
         </router-link>
-        <li><span class="menu-item">
-          <i class='fas bx bxs-book'></i>
-          <span class="nav-item">Môn học</span>
-        </span></li>
-        <li><span class="menu-item">
-          <i class='fas bx bx-question-mark'></i>
-          <span class="nav-item">Đề thi</span>
-        </span></li>
-        <li><span class="menu-item">
-          <i class='fas bx bxs-message-rounded-dots'></i>
-          <span class="nav-item">Bình luận</span>
-        </span></li>
-        <li ><span class="logout" @click="handleLogout">
-          <i class="fas fa-sign-out-alt"></i>
-          <span class="nav-item">Đăng xuất</span>
-        </span></li>
+        
+        <router-link to="/admin/exams" exact-active-class="active-link">
+          <li>
+            <span class="menu-item">
+              <i class='fas bx bx-question-mark'></i>
+              <span class="nav-item">Đề thi</span>
+            </span>
+          </li>
+        </router-link>
+        
+        <li>
+          <span class="menu-item">
+            <i class='fas bx bxs-message-rounded-dots'></i>
+            <span class="nav-item">Bình luận</span>
+          </span>
+        </li>
+        
+        <li>
+          <span class="logout" @click="handleLogout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="nav-item">Đăng xuất</span>
+          </span>
+        </li>
       </ul>
     </nav>
   </div>
 </template>
 
 <script setup>
-import{useStore} from 'vuex';
-import{useRouter} from 'vue-router';
-const router=useRouter()
-const store=useStore();
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const store = useStore();
+
 const handleLogout = () => {
-  if(confirm("Bạn có muốn đăng xuất không")){
-    store.dispatch('updateActiveAdmin',false);
+  if (confirm("Bạn có muốn đăng xuất không?")) {
+    store.dispatch('updateActiveAdmin', false);
     router.push('/loginAdmin');
   }
-}
+};
 </script>
 
 <style scoped>
@@ -89,12 +117,6 @@ nav {
   align-items: center;
   justify-content: center;
   margin: 20px 0;
-}
-
-.logo img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
 }
 
 .logo span {
@@ -158,4 +180,14 @@ ul {
   margin-right: 10px;
 }
 
+/* CSS khi link đang active */
+.active-link .menu-item {
+  background-color:orangered; /* Đổi màu nền khi link đang active */
+  color: white; /* Màu chữ khi active */
+  transform: translateX(0); /* Xóa hiệu ứng trượt */
+}
+
+.active-link i {
+  color: white/* Đổi màu icon khi link active */
+}
 </style>

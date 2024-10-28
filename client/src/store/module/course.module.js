@@ -16,6 +16,10 @@ const course={
         },
         deleteCourse:async({commit},payload)=>{
             await deleteCourse(payload);
+
+            // Xóa cource theo id dựa vào state
+
+            
             const courses=await getAllCourses();
             commit('setCourse',courses);
         },

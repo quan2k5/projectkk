@@ -2,7 +2,6 @@
 <template>
   <div class="container">
     <Navbar></Navbar>
-
     <!-- Main Content -->
     <main class="main-content">
       <!-- <header class="main-header">
@@ -49,12 +48,9 @@ import UserTable from '../views/admin/adminUser.vue'
 body {
   background-color: #f4f6f9;
 }
-
 .container {
-  display: flex;
-  
+  display: flex; 
 }
-
 .sidebar {
   width: 250px;
   height: 100vh;

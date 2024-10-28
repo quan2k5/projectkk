@@ -4,7 +4,7 @@ export const getAllCourses=async()=>{
     return response.data;
 }
 export const deleteCourse=async(courseId) => {
-    const response = await axios.delete(`http://localhost:3000/courses/${courseId}`);
+    return await axios.delete(`http://localhost:3000/courses/${courseId}`);
 };
 export const createCourse = async (data) => {
     const response = await axios.post('http://localhost:3000/courses',data);

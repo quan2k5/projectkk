@@ -3,16 +3,16 @@
     <select 
       v-model="selectedLimit" 
       class="paginationproduct_select">
-      <option value="3">3 bản ghi/trang</option>
       <option value="5">5 bản ghi/trang</option>
-      <option value="8">8 bản ghi/trang</option>
+      <option value="10">10 bản ghi/trang</option>
+      <option value="15">15 bản ghi/trang</option>
     </select>
   </div>
 </template>
 <script setup>
 import { ref, watch } from 'vue';
 const emit = defineEmits(['updateLimit']);
-const selectedLimit = ref('3'); 
+const selectedLimit = ref('5'); 
 watch(selectedLimit, (newLimit) => {
   emit('updateLimit', newLimit);
 });

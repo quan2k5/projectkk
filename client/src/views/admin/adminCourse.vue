@@ -2,20 +2,51 @@
 import {onMounted,computed,ref, reactive} from 'vue'
 import{useStore} from 'vuex';
 import courseForm from './adminCourseForm.vue'
+import Swal from 'sweetalert2';
+import {getAllSubjects} from '../../api/Subject'
 const store=useStore();
 const backendCourses=computed(()=>store.state.courses.courses);
+const backendSubjects=reactive([]);
 const activateFormAdd=ref(false);
 const activateFormUpdate=ref(false);
 let courseY=reactive({});
-onMounted(()=>{
+onMounted(async()=>{
     store.dispatch('getCourses');
+    let courses=await getAllSubjects();
+    backendSubjects.push(...courses);
 })
 const handleOpenAddForm=()=>{
   activateFormAdd.value=true;
 }
+const filterBackEndSubjects=(id)=>{
+  return backendSubjects.filter((item)=>item.idCourse==id).length;
+}
 const handleDelete=(id)=>{
-  if(confirm("Bạn có muốn xóa khóa thi này ko")){
-    store.dispatch('deleteCourse',id);
+  let findItem=backendSubjects.find((subject)=>{
+    return subject.idCourse==id;
+  })
+  if(findItem){
+    Swal.fire({
+      title: 'Không thể xóa!',
+      text: 'khóa học này đang có chứa một số môn thi',
+      icon: 'error',
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#3085d6',
+    });
+
+  }else{
+    Swal.fire({
+    text:"Bạn có muốn xóa khóa học này không?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "OK"
+    }).then((result) => {
+    if (result.isConfirmed) {
+      store.dispatch('deleteCourse',id);
+    }
+    });
   }
 }
 const handleCloseAddForm=()=>{
@@ -58,7 +89,7 @@ const handleOpenUpdateForm=(course)=>{
                 <td>{{ course.id }}</td>
                 <td><img :src="course.image"> {{ course.title }}</td>
                 <td>{{course.description}}</td> 
-                <td>{{course.totalQuestions}}</td>
+                <td>{{filterBackEndSubjects(course.id)}}</td>
                 <td class="action_td">
                     <i class='bx bx-pencil' @click="handleOpenUpdateForm(course)"></i>
                     <i class='bx bxs-eraser' @click="handleDelete(course.id)"></i>
@@ -79,8 +110,8 @@ table {
 }
 
 table th {
-  background-color: rgba(0, 0, 255, 0.616);
-  color: white;
+  background-color: #3b82f6;
+  color:white;
   font-weight: bold;
   text-align: left;
   padding: 15px;
@@ -140,7 +171,7 @@ table td {
   color: white;
   border: none;
   cursor: pointer;
-  background-color: rgba(0, 0, 255, 0.568);
+  background-color: #2563eb;;
   width: 150px;
   height: 35px;
   border-radius: 5px;

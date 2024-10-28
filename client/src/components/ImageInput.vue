@@ -47,6 +47,7 @@ const handleImageChange = async(event) => {
     try {
       const snapshot = await uploadBytes(storageRef, file);
       const url= await getDownloadURL(snapshot.ref);
+      console.log(url);
       emits('handleImange',url);   
     }catch(error){
       console.log('lỗi'); 
