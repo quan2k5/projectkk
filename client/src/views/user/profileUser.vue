@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted,ref } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import profileForm from './profileForm.vue'
@@ -8,18 +8,22 @@ const store = useStore();
 const backendHistory = computed(() => store.state.histories.histories);
 const currentUser = computed(() => store.state.users.currentUser);
 const backendExams = computed(() => store.state.exams.exams);
-
+const activateModal=ref(false);
+const handleOpenModal=()=>{
+  activateModal.value=true;
+}
+const handleClose=()=>{
+  activateModal.value=false;
+}
 onMounted(async () => {
   await store.dispatch('getExams');
   await store.dispatch('getCurrentUser');
   await store.dispatch('getHistories', `idUser=${currentUser.value.id}`);
 });
-
 const findExam = (idTest) => {
   const exam = backendExams.value.find((item) => item.id == idTest);
   return exam ? exam.title : 'Không tìm thấy đề thi';
 };
-
 const formatDate = (isoString) => {
   const date = new Date(isoString);
   return `${date.getUTCDate().toString().padStart(2, '0')}/${(date.getUTCMonth() + 1).toString().padStart(2, '0')}/${date.getUTCFullYear()}`;
@@ -36,8 +40,13 @@ const handleViewHistory = (idTest, idHistory) => {
 </script>
 <template>
   <div class="body">
-    <!-- <profileForm></profileForm> -->
     <div class="container">
+      <profileForm 
+        :currentUser="{...currentUser}" 
+        v-if="activateModal"
+        :handleClose="handleClose"
+      >
+      </profileForm>
       <div class="infor_user_part">
         <h3>Giới thiệu:</h3>
         <div class="infor_item">
@@ -53,7 +62,7 @@ const handleViewHistory = (idTest, idHistory) => {
           <div>: {{ currentUser.email }}</div>      
         </div>
         <div class="infor_item">
-          <button>Chỉnh sửa thông tin cá nhân</button>     
+          <button @click="handleOpenModal">Chỉnh sửa thông tin cá nhân</button>     
         </div>
       </div>
 
@@ -134,6 +143,7 @@ const handleViewHistory = (idTest, idHistory) => {
   width: 350px;
 }
 .history_item button {
+  
   margin-top: 10px;
   display: flex;
   align-items: center;

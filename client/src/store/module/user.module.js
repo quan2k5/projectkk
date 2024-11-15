@@ -1,5 +1,5 @@
 import { getAdmin, getActiveAdmin } from "../../api/Admin";
-import { getAllUsers,getFilterUsers,updateUsers } from "@/api/User"; 
+import { getAllUsers,getFilterUsers,updateUsers,createUser} from "@/api/User"; 
 const users= {
   state: {
     admin:{},
@@ -54,13 +54,20 @@ const users= {
       await getFilterUsers(payload.param1);
     },
     async updateAllUser({commit},payload){
-      updateUsers(payload);
+      const newUser= await updateUsers(payload);
+      commit('setCurrentUser',newUser);
     },
     async getCurrentUser({commit}){
       const users=await getAllUsers();
-      const findItem=users.find((item)=>item.status==true);
+      const findItem=users.find((item)=>item.status==true&&item.block==true);
       commit('setCurrentUser',findItem);
     },
+    async createUser({state,commit},payload){
+      await createUser(payload);
+      const arr=[...state.allUsers];
+      arr.push(payload);
+      commit('setAllUser',arr);
+    }
   },
 
 };

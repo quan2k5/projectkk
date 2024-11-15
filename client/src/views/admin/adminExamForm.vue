@@ -4,7 +4,7 @@ import {computed, onMounted, reactive} from 'vue';
 import ImageInput from '@/components/ImageInput.vue';
 const props=defineProps(['exam','status','subjectList','handleClose']);
 const store=useStore();
-const currentExam=reactive({id:-1,title:'',description:'',idSubject:'',questionNumbers:'',duration:'',image:'',status:true});
+const currentExam=reactive({id:-1,title:'',description:'',idSubject:'',questionNumbers:'',duration:'',image:'',status:true,testTurn:0});
 const error=reactive({title:'',description:'',idSubject:'',duration:'',image:'',});
 const allExams=computed(()=>store.state.exams.exams);
 const resetError=()=>{
@@ -27,6 +27,7 @@ onMounted(()=>{
         currentExam.duration=props.exam.duration;
         currentExam.image=props.exam.image;
         currentExam.status=props.exam.status;
+        currentExam.testTurn=props.exam.testTurn;
     }
 })
 const checkTitle=()=>{

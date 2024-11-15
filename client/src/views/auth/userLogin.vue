@@ -27,7 +27,7 @@
       <i class="fab fa-facebook"></i>
     </div>
     <div class="not-member">
-      Not a member? <a href="#">Register Now</a>
+      Not a member? <router-link to="/userRegister">Register Now</router-link>
     </div>
   </div>
 </template>
@@ -36,7 +36,7 @@
 import { computed, onMounted, reactive } from 'vue';
 import { useStore } from 'vuex';
 import { getAllUsers } from '@/api/User';
-import { useRouter } from 'vue-router';
+import { useRouter,useRoute } from 'vue-router';
 import Swal from 'sweetalert2';
 
 const router = useRouter();
@@ -44,10 +44,15 @@ const store = useStore();
 const currentUser = reactive({ email: '', password: '' });
 const error = reactive({ email: '', password: '', checkUser: '' });
 const backendUsers = reactive([]);
+const route=useRoute();
 
 onMounted(async () => {
   const users = await getAllUsers();
   backendUsers.push(...users);
+  if(route.query.email!=undefined & route.query.password!=undefined){
+    currentUser.email=route.query.email;
+    currentUser.password=route.query.password;
+  }
 });
 
 const validateUser = () => {
@@ -77,7 +82,8 @@ const handleSubmit = () => {
     if (obj) {
       obj.status = true;
       store.dispatch('updateAllUser', obj);
-      router.push('/');
+      const redirect=route.query.redirect||'/';
+      router.push(redirect);
     } else {
       error.checkUser = 'Email hoặc mật khẩu không đúng';
     }

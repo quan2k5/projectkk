@@ -30,7 +30,7 @@ const router=useRouter();
 const store = useStore();
 const backEndCourses = computed(() => store.state.courses.courses);
 const activeSlide = ref(0);
-const slideWidth = 340; // Adjust based on your card width
+const slideWidth = 356; // Adjust based on your card width
 const visibleSlides = computed(()=>backEndCourses.value.length-4); // Number of slides visible at once
 onMounted(() => {
   store.dispatch('getCourses');
@@ -77,7 +77,7 @@ const handleClick =(id)=>{
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     flex-shrink: 0; /* Prevent shrinking */
-    width: 320px; /* Set fixed width for cards */
+    width: 350px; /* Set fixed width for cards */
     margin: 0 10px; /* Add margin between cards */
   }
   

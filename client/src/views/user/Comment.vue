@@ -7,7 +7,7 @@
                    <i :class="['bx', starIndex <= currentComment.star ? 'bxs-star' : 'bx-star']"></i>
                </li>
            </ul>
-           <div class="input_item">
+           <div class="input_item" >
                <input type="text" placeholder="Nhập đánh giá của bạn" v-model="currentComment.text">
            </div>
             <div v-if="error!=''" class="error">{{ error }}</div>
@@ -30,7 +30,7 @@ const currentComment = reactive({
     idUser: props.idUser,
     idExam: props.idExam,
     text: '',
-    star: -1,
+    star: 0,
 });
 const error=ref('');
 onMounted(()=>{

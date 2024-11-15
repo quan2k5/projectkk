@@ -43,7 +43,7 @@ const validateTitle=()=>{
 const validateCourse=()=>{
     if(currentCourse.value.title==''){
         errorCourse.value.title='Tên khóa học không đc để trống';
-    }else if(!validateTitle()){
+    }else if(validateTitle()){
         errorCourse.value.title='Tên khóa học không đc trùng';
     }
     if(currentCourse.value.description==''){

@@ -2,40 +2,20 @@
 <template>
   <div class="container">
     <Navbar></Navbar>
-    <!-- Main Content -->
+    <headerAdmin></headerAdmin>
     <main class="main-content">
-      <!-- <header class="main-header">
-        <input type="text" class="search-bar" placeholder="Search...">
-      </header>
-
-      <section class="dashboard-summary">
-        <div class="widget">
-          <p class="widget-value">8,267</p>
-          <p class="widget-label">New Users</p>
-        </div>
-        <div class="widget">
-          <p class="widget-value">200,521</p>
-          <p class="widget-label">Total Orders</p>
-        </div>
-        <div class="widget">
-          <p class="widget-value">215,542</p>
-          <p class="widget-label">Products Sold</p>
-        </div>
-        <div class="widget">
-          <p class="widget-value">$677.89</p>
-          <p class="widget-label">This Month</p>
-        </div>
-      </section> -->
-      <router-view></router-view>
-    </main>
+        <router-view></router-view>
+    </main>   
   </div>
 </template>
 
 <script setup>
 import { reactive } from 'vue';
 import Navbar from './sideBarAdmin.vue'
+import headerAdmin from './headerAdmin.vue';
 import UserTable from '../views/admin/adminUser.vue'
 </script>
+
 
 <style scoped>
 * {
@@ -90,6 +70,7 @@ body {
   flex-grow: 1;
   padding: 20px;
   margin-left: 250px;
+  margin-top:70px ;
 }
 
 .main-header {

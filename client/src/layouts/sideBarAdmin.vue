@@ -8,7 +8,7 @@
           </span>
         </li>
         
-        <router-link to="/" exact-active-class="active-link">
+        <router-link to="/admin" exact-active-class="active-link">
           <li>
             <span class="menu-item">
               <i class='fas bx bx-menu'></i>
@@ -73,15 +73,25 @@
 <script setup>
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
-
+import Swal from 'sweetalert2';
 const router = useRouter();
 const store = useStore();
-
 const handleLogout = () => {
-  if (confirm("Bạn có muốn đăng xuất không?")) {
-    store.dispatch('updateActiveAdmin', false);
-    router.push('/loginAdmin');
-  }
+  Swal.fire({
+    title: 'Bạn có chắc chắn muốn đăng xuất?',
+    text: "Bạn sẽ phải đăng nhập lại sau khi đăng xuất!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Đăng xuất',
+    cancelButtonText: 'Hủy'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      store.dispatch('updateActiveAdmin', false);
+      router.push('/loginAdmin');
+    }
+  });
 };
 </script>
 

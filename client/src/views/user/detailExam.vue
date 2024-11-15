@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 import queryString from 'query-string';
 import Comment from './Comment.vue';
+import Swal from 'sweetalert2';
 const store=useStore();
 const route=useRoute();
 const currentExam=computed(()=>store.state.exams.currentExam);
@@ -28,9 +29,24 @@ onMounted(async()=>{
   store.dispatch('getAllQuestions',`examId=${route.params.id}`);
   store.dispatch('getFilterComments',`idUser=${currentUser.value.id}&idExam=${route.params.id}`)
 })
-const handleClick=()=>{
-  router.push(`/testExam/${route.params.id}`);
-}
+const handleClick = () => {
+  if (currentUser.value) {
+    router.push(`/testExam/${route.params.id}`);
+  } else {
+    Swal.fire({
+      title: 'Bạn có muốn đăng nhập không?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Có',
+      cancelButtonText: 'Không',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        router.push(`/userLogin?redirect=${route.fullPath}`);
+      }
+    });
+  }
+};
+
 const handleViewPercent=()=>{
   if(currentHistory.value!=undefined){
     if(currentHistory.value.history!=undefined){
@@ -135,9 +151,9 @@ const handleDeleteComment=(comment)=>{
         <div class="test-info">
             <p>{{ currentExam.description }}</p>
             <p>
-            Thời gian làm bài: {{ currentExam.duration}} phút | 200 câu hỏi | 141 bình luận
+            Thời gian làm bài: {{ currentExam.duration}} phút | {{ currentAllQuestions.length }} câu hỏi
             </p>
-            <p>218,934 người đã luyện tập đề thi này</p>
+            <p>{{ currentExam.testTurn }} lượt luyện tập đề thi này</p>
         </div>
       </header>
        <div class="do_exam" v-if="!route.query.idHistory">
@@ -162,10 +178,6 @@ const handleDeleteComment=(comment)=>{
           <div class="test_item">
             <label for="">Độ chính xác(%):</label>
             <h4>{{handleViewPercent()}}%</h4>
-          </div>
-          <div class="test_item">
-            <label for="">Thời gian làm bài:</label>
-            <h4>0:06:07</h4>
           </div>
           
         </div>

@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import LayoutAdmin from '../layouts/LayoutAdmin.vue';
-import LoginAdmin from '../views/admin/Login.vue';
+import LoginAdmin from '../views/auth/adminLogin.vue';
 import adminUser from '../views/admin/adminUser.vue'
 import adminCourse from '../views/admin/adminCourse.vue'
 import adminSubject from '../views/admin/adminSubject.vue'
@@ -17,12 +17,19 @@ import DetailExam from '@/views/user/detailExam.vue';
 import profileUser from '@/views/user/profileUser.vue';
 import { getAllUsers } from '@/api/User';
 import userRegister from '@/views/auth/userRegister.vue';
+import adminAll from '@/views/admin/adminAll.vue';
+import NotFound from '@/views/NotFound.vue';
 const routes = [
     {
         path: '/admin',
         name: 'admin',
         component:LayoutAdmin,
         children:[
+            {
+                path:'',
+                name:'',
+                component:adminAll
+            },
             {
                 path:'users',
                 name:'adminUsers',
@@ -73,11 +80,30 @@ const routes = [
         path:'/userLogin',
         name:'userLogin',
         component:userLogin,
+        beforeEnter:async(to,from,next)=>{
+            const user=await getAllUsers();
+            let findUser=user.find((item)=>item.status==true&&item.block==true);
+            if(findUser){
+                next('/');
+            }else{
+                next();
+            }
+
+        }
     },
     {
         path:'/userRegister',
         name:'userRegister',
-        component:userRegister
+        component:userRegister,
+        beforeEnter:async(to,from,next)=>{
+            const user=await getAllUsers();
+            let findUser=user.find((item)=>item.status==true&&item.block==true);
+            if(findUser){
+                next('/');
+            }else{
+                next();
+            }
+        }
     },
     {
         path:'/user',
@@ -108,7 +134,7 @@ const routes = [
             {
                 path:"profileUser",
                 name:"profileUser",
-                component:profileUser
+                component:profileUser,
             },
         ]
     },
@@ -118,19 +144,28 @@ const routes = [
         component:testExam,
         beforeEnter:async(to,from,next)=>{
             const user=await getAllUsers();
-            let findUser=user.find((item)=>item.status==true);
+            let findUser=user.find((item)=>item.status==true &&item.block==true);
             if(findUser){
                 next();
             }else{
+                console.log('11111'); 
                 next('/userLogin');
             }
 
         }
+    },
+    {
+        path:"/:pathMatch(.*)*",
+        name:'notFound',
+        component:NotFound,
     }
 ];
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
-    routes
+    routes,
+    scrollBehavior() {
+        return { top: 0 };
+    }
 });
 
 export default router;

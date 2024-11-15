@@ -18,19 +18,19 @@ const totalQuestions = computed(() => store.state.questions.allQuestions);
 const params = reactive({ _page: 1, _limit: 8, examId: route.params.id });
 const currentHistory = ref({ id: '', idUser: '', idTest: '',creatAt:'',history: [],endAt:'' });
 const backendHistory=computed(()=>store.state.histories.currentHistory);
+const currentExam=computed(()=>store.state.exams.currentExam);
 const yourAnswerList = reactive([]);
 const remainingTime = ref(0);
 const interval = ref(0);
 const totalPage = ref(0);
 const checkUnMounted = ref(false);
-
-// Lifecycle hooks and data initialization
 onMounted(async () => {
   currentHistory.value.creatAt=new Date();
   if(route.query.idHistory){
     store.dispatch('getCurrentHistory',`id=${route.query.idHistory}`);
   }
   const exam = await getSearchExams(`id=${route.params.id}`);
+  store.dispatch('getCurrentExam',route.params.id);
   currentCourse = exam[0];
   currentHistory.value.id = Math.floor(Math.random() * 100001);
   startTimer(currentCourse.duration);
@@ -44,8 +44,6 @@ onMounted(async () => {
   
   store.dispatch('getFilterQuestions', queryString.stringify(params));
 });
-
-// Timer and navigation handling
 const startTimer = (durationInMinutes) => {
   if(!route.query.idHistory){
     remainingTime.value = durationInMinutes * 60;
@@ -67,6 +65,7 @@ const handleHistoryTest = async () => {
   currentHistory.value.endAt=new Date();
   currentHistory.value.history.push(...yourAnswerList);
   store.dispatch('createHistory1', currentHistory.value);
+  store.dispatch('updateExam',{...currentExam.value,testTurn:currentExam.value.testTurn+1});
 };
 
 onBeforeRouteLeave(async (to, from, next) => {
@@ -132,11 +131,17 @@ const findHistory=(id)=>{
     }
   }
 }
+const handleReturn=()=>{ 
+  router.push(`/user/detailExam/${route.params.id}?idHistory=${route.query.idHistory}`);
+}
 </script>
 <template>
   <div class="container">
     <div class="main-content">
-      <h2>{{ route.query.idHistory?"Đáp án đề thi":"Đề thi"}}</h2>
+      <div class="title_Exam">
+        <h2>{{ route.query.idHistory?"Đáp án đề thi":"Đề thi"}}</h2>
+        <button @click="handleReturn" v-if="route.query.idHistory">Quay lại</button>
+      </div>
       <div
         v-for="(question, index) in backendQuestions"
         :key="question.id"
@@ -189,7 +194,7 @@ const findHistory=(id)=>{
 }
 
 .main-content {
-  width: 1050px;
+  width: 1250px;
   padding: 10px;
   background-color: #ffffff;
   border-radius: 8px;
@@ -234,5 +239,14 @@ button {
 }
 button:hover {
   background-color: #0056b3;
+}
+.title_Exam{
+  display: flex;
+  gap:10px;
+  justify-content: center;
+}
+.title_Exam button{
+  height: 30px;
+  width: 100px;
 }
 </style>

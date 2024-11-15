@@ -154,7 +154,7 @@ const handleBlock=(exam,status,string)=>{
                             </div>
                             <div class="item_part">
                                 <h5>Số lượt thi :</h5>
-                                <span class="status">5</span>
+                                <span class="status">{{ exam.testTurn }}</span>
                             </div>
                         </div>
                     </div>
@@ -206,7 +206,7 @@ const handleBlock=(exam,status,string)=>{
     color: white;
 }
 .course_list{
-    width: 1000px;
+    width: 1200px;
 }
 .course_item{
     width: 100%;

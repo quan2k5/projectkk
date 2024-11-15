@@ -1,6 +1,7 @@
 <template>
   <div class="imageProduct_form">
-    <div class="image_product_title">Hình ảnh khóa học</div>
+    {{  }}
+    <div class="image_product_title">Hình ảnh {{ title?title:"khóa học" }}</div>
     <div class="main_content">
     <div class="uploadImage_part">
       <div class="upload_icon_part">
@@ -36,7 +37,7 @@
 import {computed } from 'vue';
 import { useStore } from 'vuex';
 import {ref,uploadBytes,getDownloadURL} from 'firebase/storage';
-const props=defineProps(['image','error'])
+const props=defineProps(['image','error','title'])
 const emits=defineEmits(['handleImange']);
 import {storage} from '../firebase/firebaseConfig'
 const handleImageChange = async(event) => {
@@ -47,7 +48,6 @@ const handleImageChange = async(event) => {
     try {
       const snapshot = await uploadBytes(storageRef, file);
       const url= await getDownloadURL(snapshot.ref);
-      console.log(url);
       emits('handleImange',url);   
     }catch(error){
       console.log('lỗi'); 
@@ -71,6 +71,7 @@ const handleImageChange = async(event) => {
 .image_product_title {
   margin-top: 0;
   height: 34px;
+  text-align: start;
   padding: 0px 0px 0px;
 }
 

@@ -45,8 +45,6 @@ const checkNameQuestion=()=>{
 const validateQuestion=()=>{
     if(currentQuestion.name==''){
         error.name='Cau hoi khong duoc de trong'
-    }else if(!checkNameQuestion()){
-        error.name="Ten cau hoi bi trung"
     }
     if(currentQuestion.options[0]==""){
         error.option1="Dap an A dang trong"

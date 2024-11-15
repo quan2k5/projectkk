@@ -25,14 +25,14 @@ const handleLogout=async()=>{
       <div class="container">
         <!-- Phần bên trái -->
         <div class="left-section">
-          <a href="/">
+          <router-link to="/">
             <img
               src="https://static.vecteezy.com/system/resources/previews/009/182/690/original/thi-letter-logo-design-with-polygon-shape-thi-polygon-and-cube-shape-logo-design-thi-hexagon-logo-template-white-and-black-colors-thi-monogram-business-and-real-estate-logo-vector.jpg"
               alt="Logo"
               class="logo"
             />
-          </a>
-          <p class="brand-name">OnlineTest111111111111111111111111</p>
+          </router-link>
+          <p class="brand-name">OnlineTest</p>
         </div>
   
         <!-- Thanh tìm kiếm -->

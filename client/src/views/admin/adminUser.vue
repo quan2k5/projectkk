@@ -204,5 +204,6 @@ table a:hover {
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
+  margin-top: 20px;
 }
 </style>
