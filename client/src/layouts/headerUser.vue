@@ -32,7 +32,7 @@ const handleLogout=async()=>{
               class="logo"
             />
           </a>
-          <p class="brand-name">OnlineTest</p>
+          <p class="brand-name">OnlineTest111111111111111111111111</p>
         </div>
   
         <!-- Thanh tìm kiếm -->
