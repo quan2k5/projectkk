@@ -5,7 +5,7 @@
     <headerAdmin></headerAdmin>
     <main class="main-content">
         <router-view></router-view>
-    </main>   
+    </main>  
   </div>
 </template>
 
@@ -15,7 +15,6 @@ import Navbar from './sideBarAdmin.vue'
 import headerAdmin from './headerAdmin.vue';
 import UserTable from '../views/admin/adminUser.vue'
 </script>
-
 
 <style scoped>
 * {
